@@ -1,0 +1,25 @@
+// @import './size';
+@import './flex';
+@import './color';
+@import './background';
+@import './text';
+@import './margin&padding';
+ 
+/* ==================
+        初始化
+ ==================== */
+body {
+	font-size: $_text_df + upx;
+	font-family: Helvetica Neue, Helvetica, sans-serif;
+}
+
+scroll-view,
+swiper,
+button,
+input,
+textarea,
+label,
+navigator,
+image {
+	box-sizing: border-box;
+}
