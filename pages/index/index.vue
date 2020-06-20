@@ -1,28 +1,31 @@
 <template>
-	<div class="content bg-red"></div>
+	<div class="content">
+	
+	</div>
 </template>
 
 <script>
+
 export default {
+	// components: { CTabBar },
+
 	onLoad() {
 		uni.getSystemInfo({
 			success: res => {
-				console.log(res);
+				console.log(res)
 			}
-		});
-		
-		console.log(this.$request)
+		})
 
 		// #ifdef MP
-		console.log(uni.getMenuButtonBoundingClientRect());
+		console.log(uni.getMenuButtonBoundingClientRect())
 		// #endif
 
 		// #ifndef MP
-		console.log('this is test');
+		console.log('this is test')
 		// #endif
 	},
 	methods: {}
-};
+}
 </script>
 
 <style lang="scss">

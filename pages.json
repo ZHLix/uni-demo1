@@ -18,7 +18,9 @@
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "#ffffff",
+		// #ifdef MP
+		"navigationBarTextStyle":"#ffffff",
+		// #endif
 		"navigationBarBackgroundColor": "#2C405A",
 		"navigationBarTitleText": "测试"
 	},
@@ -26,6 +28,9 @@
 		"backgroundColor":"#2C405A",
 		"color":"#ffffff",
 		"selectedColor":"#1CBBB4",
+		// #ifdef MP-WEIXIN
+		"custom": true,
+		// #endif
 		"list": [{
 			"text": "首页",
 			"pagePath": "pages/index/index",
@@ -47,5 +52,8 @@
 			"iconPath": "static/logo.png",
 			"selectedIconPath": "static/logo.png"
 		}]
+	},
+	"usingComponents": {
+		// "customtabbar": "/components/TabBar/index"
 	}
 }

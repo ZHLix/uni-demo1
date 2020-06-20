@@ -3,7 +3,7 @@ import App from './App'
 import store from './store'
 
 // request
-import Request from './common/request'
+import Request from './common/Request'
 
 
 Vue.config.productionTip = false
