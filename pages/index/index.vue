@@ -1,16 +1,24 @@
 <template>
 	<div class="content flex flex-direction">
 		<c-refresh ref="refresh" class="flex-sub" @start="refresh">
-			<div class="test text-center text-blue">this is test</div>
-			
-			<div class="test1"></div>
-			<c-tab-bar></c-tab-bar>
+			<div class="margin">
+				
+				<button class="cu-btn block bg-blue lg">登录</button>
+				
+			</div>
 		</c-refresh>
+		<c-tab-bar></c-tab-bar>
 	</div>
 </template>
 
 <script>
-import CRefresh from '@/components/Layout/refresh.vue'
+// #ifdef MP
+import CRefresh from '@/components/Layout/refresh/mp.vue'
+// #endif
+
+// #ifndef MP
+import CRefresh from '@/components/Layout/refresh/nmp.vue'
+// #endif
 import CTabBar from '@/components/TabBar/index.vue'
 export default {
 	components: { CRefresh, CTabBar },

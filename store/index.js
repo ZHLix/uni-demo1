@@ -6,6 +6,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		/**
+		 * 主题色
+		 */
+		theme: {
+			text: '#2979FF',
+			icon: '#aaaaaa',
+			iconSelected: '#2979FF',
+			background: '#f0f0f0',
+		},
+
+		/**
 		 * 底部导航列表
 		 */
 		tabbar: [{
@@ -28,12 +38,22 @@ export default new Vuex.Store({
 				icon: 'cuIcon-news',
 				iconSelected: 'cuIcon-newsfill'
 			},
+			// #ifdef MP
 			{
 				title: '油菜招聘',
 				image: '/static/images/job3.png',
-				type: 'miniprogram',
+				type: 'navigateToMiniProgram',
 				appId: 'wxc5e14770d465dcac'
 			},
+			// #endif
+			// #ifndef MP
+			{
+				title: '油菜招聘',
+				image: 'static/images/job3.png',
+				type: 'navigateToMiniProgram',
+				appId: 'wxc5e14770d465dcac'
+			},
+			// #endif
 			{
 				name: '/pages/mine/mine',
 				title: '我的',

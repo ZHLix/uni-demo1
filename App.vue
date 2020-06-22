@@ -54,5 +54,5 @@ export default {
 <style lang="scss">
 /*每个页面公共css */
 // color ui
-@import './common/colorUi/index.scss';
+@import './common/colorUi/index.css';
 </style>

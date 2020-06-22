@@ -10,7 +10,7 @@
 		@scrolltoupper="toupper"
 	>
 		<div class="container">
-			<div class="item w-100 flex flex-wrap justify-center align-center" :style="{ bottom: (loading ? -maxHeight : -containerHeight) + 'rpx' }">
+			<div class="item w-100 flex flex-wrap justify-center align-center" :style="{ bottom: -(loading ? maxHeight : offset.top) + 'rpx' }">
 				<div class="load bg-white shadow round"><span :class="['icon', loading ? 'loading' : '']"></span></div>
 			</div>
 		</div>
@@ -24,15 +24,12 @@ export default {
 		refresh: {
 			type: Boolean,
 			default: true
-		},
-		maxHeight: {
-			type: Number,
-			default: 100
 		}
 	},
 
 	data() {
 		return {
+			maxHeight: 100,
 			isTop: true,
 			offset: {
 				top: 0,
@@ -43,15 +40,15 @@ export default {
 		}
 	},
 
-	computed: {
-		containerHeight() {
-			let height = this.offset.top - this.offset.start
-			height = height >= 0 ? height : 0
-			height = height > this.maxHeight * 2 ? this.maxHeight * 2 : height
-			console.log(height)
-			return height //  ? height + 'rpx' : 0
-		}
-	},
+	// computed: {
+	// 	containerHeight() {
+	// 		let height = this.offset.top - this.offset.start
+	// 		height = height >= 0 ? height : 0
+	// 		height = height > this.maxHeight * 2 ? this.maxHeight * 2 : height
+	// 		console.log(height)
+	// 		return height //  ? height + 'rpx' : 0
+	// 	}
+	// },
 
 	methods: {
 		scroll({ detail: { scrollTop } }) {
@@ -64,19 +61,19 @@ export default {
 			this.isTop = true
 		},
 
+		// tolower() {
+		// 	console.log('this is tolower')
+		// },
+
 		touch({ type, touches: [e] }) {
 			if (this.isTop && this.refresh && !this.loading) {
-				const offsetTop = parseInt(e?.clientY)
-				const direction = offsetTop - this.offset.start >= 0 ? 'down' : 'up'
+				const offsetTop = parseInt(e ? e.clientY : 0)
 
 				if (type === 'touchstart') {
 					this.offset.start = offsetTop
-					this.offset.top = offsetTop
 				} else if (type === 'touchmove') {
-					if (!offsetTop % 5) {
-						this.offset.top = offsetTop
-					}
-					this.offset.top = offsetTop
+					this.offset.top = (offsetTop - this.offset.start) / 2
+
 					if (offsetTop - this.offset.start >= this.maxHeight - 20) {
 						this.offset.loading = true
 					} else {
@@ -89,7 +86,6 @@ export default {
 		},
 
 		touchend() {
-			console.log('this is touchend')
 			if (this.offset.loading) {
 				this.loading = true
 				this.$emit('start')
@@ -116,24 +112,24 @@ export default {
 	height: 100%;
 
 	.container {
-		// overflow: hidden; 
+		// overflow: hidden;
 		position: absolute;
-		top: 0;
+		top: -10upx;
 		left: 0;
 		width: 100%;
 		height: 0;
 
 		.item {
-			transition: all 0.1s ease;
+			// transition: all 0.1s ease;
 			position: absolute;
 			bottom: 0;
-			// top: 50%;
-			// transform: translateY(-50%);
-			// left: 0;
+			transform: translateX(-50%);
+			left: 50%;
 
 			.load {
 				width: 64upx;
 				height: 64upx;
+				box-shadow: 0upx 0upx 12upx rgba(26, 26, 26, 0.2);
 
 				.icon {
 					width: 64upx;
