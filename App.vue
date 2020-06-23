@@ -55,4 +55,30 @@ export default {
 /*每个页面公共css */
 // color ui
 @import './common/colorUi/index.css';
+
+
+
+.w-25 {
+	width: 25%;
+}
+
+.w-50 {
+	width: 50%;
+}
+
+.w-100 {
+	width: 100%;
+}
+
+.h-25 {
+	height: 25%;
+}
+
+.h-50 {
+	height: 50%;
+}
+
+.h-100 {
+	height: 100%;
+}
 </style>

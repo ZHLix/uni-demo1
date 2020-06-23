@@ -1,6 +1,6 @@
 <template>
 	<scroll-view
-		class="refresh-container flex-sub"
+		class="refresh-container flex-sub flex flex-direction"
 		scroll-y
 		@touchstart="touch"
 		@touchmove="touch"
@@ -14,7 +14,7 @@
 				<div class="load bg-white shadow round"><span :class="['icon', loading ? 'loading' : '']"></span></div>
 			</div>
 		</div>
-		<slot></slot>
+		<div class="flex-sub"><slot></slot></div>
 	</scroll-view>
 </template>
 
@@ -110,9 +110,11 @@ export default {
 .refresh-container {
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 
 	.container {
 		// overflow: hidden;
+		z-index: 1024;
 		position: absolute;
 		top: -10upx;
 		left: 0;

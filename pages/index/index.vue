@@ -1,11 +1,7 @@
 <template>
 	<div class="content flex flex-direction">
 		<c-refresh ref="refresh" class="flex-sub" @start="refresh">
-			<div class="margin">
-				
-				<button class="cu-btn block bg-blue lg">登录</button>
-				
-			</div>
+			<div class="margin"><button class="cu-btn block bg-blue lg" @click="login">登录</button></div>
 		</c-refresh>
 		<c-tab-bar></c-tab-bar>
 	</div>
@@ -24,18 +20,13 @@ export default {
 	components: { CRefresh, CTabBar },
 
 	onLoad() {
-		uni.getSystemInfo({
-			success: res => {
-				console.log(res)
-			}
-		})
-
+		// uni.getSystemInfo({
+		// 	success: res => {
+		// 		console.log(res)
+		// 	}
+		// })
 		// #ifdef MP
-		console.log(uni.getMenuButtonBoundingClientRect())
-		// #endif
-
-		// #ifndef MP
-		console.log('this is test')
+		// console.log(uni.getMenuButtonBoundingClientRect())
 		// #endif
 	},
 	methods: {
@@ -45,6 +36,12 @@ export default {
 			setTimeout(() => {
 				this.$refs.refresh.end()
 			}, 1000)
+		},
+
+		login() {
+			uni.navigateTo({
+				url: '/pages/login/login'
+			})
 		}
 	}
 }
@@ -53,7 +50,12 @@ export default {
 <style lang="scss">
 .content {
 	width: 100vw;
+	/* #ifndef H5 */
 	height: 100vh;
+	/* #endif */
+	/* #ifdef H5 */
+	height: calc(100vh - 44px);
+	/* #endif */
 }
 
 #camera {

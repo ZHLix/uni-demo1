@@ -38,7 +38,6 @@ export default {
 		_list() {
 			let list = (this.value ?? []).concat()
 			if (!list.length) list = this.$store.state.tabbar
-			console.log(list)
 			return list
 		},
 		theme() {

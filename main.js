@@ -5,6 +5,12 @@ import store from './store'
 // request
 import Request from './common/Request'
 
+// utils
+import Utils from './common/Utils'
+
+// api
+import Api from './api'
+
 
 Vue.config.productionTip = false
 
@@ -16,5 +22,7 @@ const app = new Vue({
 })
 
 Vue.use(Request, app)
+Vue.use(Utils, app)
+Vue.use(Api, app)
 
 app.$mount()
