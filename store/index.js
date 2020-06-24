@@ -22,22 +22,22 @@ export default new Vuex.Store({
 				name: '/pages/index/index',
 				title: '首页',
 
-				icon: 'cuIcon-home',
-				iconSelected: 'cuIcon-homefill'
+				icon: '\ue62d',
+				iconSelected: '\ue60a'
 			},
 			{
 				name: '/pages/classify/classify',
 				title: '分类',
 
-				icon: 'cuIcon-circle',
-				iconSelected: 'cuIcon-circlefill'
+				icon: '\ue654',
+				iconSelected: '\ue608'
 			},
-			{
-				name: '/pages/news/news',
-				title: '新闻',
-				icon: 'cuIcon-news',
-				iconSelected: 'cuIcon-newsfill'
-			},
+			// {
+			// 	name: '/pages/news/news',
+			// 	title: '新闻',
+			// 	icon: 'cuIcon-news',
+			// 	iconSelected: 'cuIcon-newsfill'
+			// },
 			// #ifdef MP
 			{
 				title: '油菜招聘',
@@ -57,8 +57,8 @@ export default new Vuex.Store({
 			{
 				name: '/pages/mine/mine',
 				title: '我的',
-				icon: 'cuIcon-my',
-				iconSelected: 'cuIcon-myfill'
+				icon: '\ue63b',
+				iconSelected: '\ue63a'
 			}
 		],
 	},
