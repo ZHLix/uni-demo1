@@ -11,7 +11,6 @@ import Utils from './common/Utils'
 // api
 import Api from './api'
 
-
 Vue.config.productionTip = false
 
 App.mpType = 'app'

@@ -1,0 +1,51 @@
+<template>
+	<view class="container_full flex flex-direction">
+		<c-menu-bar shadow><text class="text-black text-df">培训</text></c-menu-bar>
+
+		<c-refresh :refresh="false" class="flex-sub" ref="refresh">
+			<view class="padding">
+				<navigator url="./login" hover-class="none">
+					<button class="cu-btn bg-blue"><text class="text-df text-white">登录</text></button>
+				</navigator>
+			</view>
+		</c-refresh>
+
+		<c-tab-bar></c-tab-bar>
+	</view>
+</template>
+
+<script>
+import CIcon from '@/components/Icon'
+import CRefresh from '@/components/Layout/refresh'
+import CTabBar from '@/components/TabBar'
+import CMenuBar from '@/components/MenuBar'
+export default {
+	components: { CMenuBar, CIcon, CTabBar, CRefresh },
+	data() {
+		return {
+			/**
+			 * api
+			 */
+			api: {}
+		}
+	},
+	computed: {
+		theme() {
+			return this.$store.state.theme
+		}
+	},
+	methods: {
+		init() {
+			console.log(this.$request.post('miniapp/index'))
+			// this.api.init()
+		}
+	},
+	
+	created() {
+		// this.api = this.$api.Index // getApp().globalData.$api.Index
+		this.init()
+	}
+}
+</script>
+
+<style scoped></style>

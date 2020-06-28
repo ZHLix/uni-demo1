@@ -55,12 +55,9 @@ $_marginOrPadding_xsl: 80 !default;
 
 			.#{$class_name} {
 				@each $v in $key_name {
-					#{$v}: $s_v + upx;
+					#{$v}: $s_v + upx !important;
 				}
 			}
 		}
 	}
-}
-.test {
-	border: 1px solid bottom;
 }

@@ -2,57 +2,50 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 
 		{
-			"path": "pages/index/index"
-		}, {
-			"path": "pages/classify/classify"
-		}, {
-			"path": "pages/news/news"
-		}, {
-			"path": "pages/cart/cart",
-			"style": {}
-		}, {
-			"path": "pages/mine/mine",
-			"style": {}
+			"path": "pages/index/index",
+			"style":{
+				"navigationStyle":"custom"
+			}
+			
 		},
 		{
-			"path": "pages/login/login",
+			"path": "pages/index/login",
 			"style": {
-				"navigationBarTitleText":"登录",
-				"navigationBarBackgroundColor":"#FFFFFF",
-				"navigationBarTextStyle":"black"
+				"navigationStyle":"custom"
 			}
 		}
 	],
 	"globalStyle": {
-		// #ifdef MP
-		"navigationBarTextStyle": "#ffffff",
-		// #endif
-		"navigationBarBackgroundColor": "#2C405A",
-		"navigationBarTitleText": "测试"
+		// "navigationBarBackgroundColor": "#2C405A",
+		// "navigationBarTitleText": "测试"
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
 	},
-	"tabBar": {
-		"backgroundColor": "#2C405A",
-		"color": "#ffffff",
-		"selectedColor": "#1CBBB4",
-		// #ifdef MP-WEIXIN
-		"custom": true,
-		// #endif
-		"list": [{
-			"text": "首页",
-			"pagePath": "pages/index/index"
-		}, {
-			"text": "分类",
-			"pagePath": "pages/classify/classify"
-		}, {
-			"text": "新闻",
-			"pagePath": "pages/news/news"
-		}, {
-			"text": "购物车",
-			"pagePath": "pages/cart/cart"
-		}, {
-			"text": "我的",
-			"pagePath": "pages/mine/mine"
-		}]
-	},
+	// "tabBar": {
+	// 	"backgroundColor": "#2C405A",
+	// 	"color": "#ffffff",
+	// 	"selectedColor": "#1CBBB4",
+	// 	// #ifdef MP-WEIXIN
+	// 	"custom": true,
+	// 	// #endif
+	// 	"list": [{
+	// 		"text": "首页",
+	// 		"pagePath": "pages/index/index"
+	// }, {
+	// 	"text": "分类",
+	// 	"pagePath": "pages/classify/classify"
+	// }, {
+	// 	"text": "新闻",
+	// 	"pagePath": "pages/news/news"
+	// }, {
+	// 	"text": "购物车",
+	// 	"pagePath": "pages/cart/cart"
+	// }, {
+	// 	"text": "我的",
+	// 	"pagePath": "pages/mine/mine"
+	// }]
+	// },
 	"usingComponents": {}
 }

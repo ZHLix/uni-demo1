@@ -1,0 +1,79 @@
+@import './flex';
+@import './color';
+@import './background';
+@import './text';
+@import './margin&padding';
+@import './border';
+@import './button';
+@import './avatar';
+ 
+/* ==================
+        初始化
+ ==================== */
+// body {
+	// font-size: $_text_df + upx;
+	// font-family: Helvetica Neue, Helvetica, sans-serif;
+// }
+
+// scroll-view,
+// swiper,
+// button,
+// input,
+// textarea,
+// label,
+// navigator,
+// image {
+// 	box-sizing: border-box;
+// }
+
+.w-25 {
+/* #ifdef MP */
+	width: 25%;
+/* #endif */
+/* #ifndef MP */
+	width: 187.5rpx;
+/* #endif */
+}
+
+.w-50 {
+/* #ifdef MP */
+	width: 50%;
+/* #endif */
+/* #ifndef MP */
+	width: 375rpx;
+/* #endif */
+}
+
+.w-100 {
+/* #ifdef MP */
+	width: 100%;
+/* #endif */
+/* #ifndef MP */
+	width: 750rpx;
+/* #endif */
+}
+
+.h-25 {
+/* #ifdef MP */
+	height: 25%;
+/* #endif */
+}
+
+.h-50 {
+/* #ifdef MP */
+	height: 50%;
+/* #endif */
+}
+
+.h-100 {
+/* #ifdef MP */
+	height: 100%;
+/* #endif */
+}
+
+
+/* #ifdef MP || H5 */
+navigator, button {
+	display: inline-block;
+}
+/* #endif */

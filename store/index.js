@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
+		baseUrl: 'https://peixun.mulgore.cn',
 		/**
 		 * 主题色
 		 */
@@ -18,7 +19,8 @@ export default new Vuex.Store({
 		/**
 		 * 底部导航列表
 		 */
-		tabbar: [{
+		tabbar: [
+			{
 				name: '/pages/index/index',
 				title: '首页',
 
@@ -32,28 +34,18 @@ export default new Vuex.Store({
 				icon: '\ue654',
 				iconSelected: '\ue608'
 			},
-			// {
-			// 	name: '/pages/news/news',
-			// 	title: '新闻',
-			// 	icon: 'cuIcon-news',
-			// 	iconSelected: 'cuIcon-newsfill'
-			// },
-			// #ifdef MP
+			{
+				name: '/pages/news/news',
+				title: '新闻',
+				icon: '\ue657',
+				iconSelected: '\ue658'
+			},
 			{
 				title: '油菜招聘',
 				image: '/static/images/job3.png',
 				type: 'navigateToMiniProgram',
 				appId: 'wxc5e14770d465dcac'
 			},
-			// #endif
-			// #ifndef MP
-			{
-				title: '油菜招聘',
-				image: 'static/images/job3.png',
-				type: 'navigateToMiniProgram',
-				appId: 'wxc5e14770d465dcac'
-			},
-			// #endif
 			{
 				name: '/pages/mine/mine',
 				title: '我的',
@@ -61,6 +53,14 @@ export default new Vuex.Store({
 				iconSelected: '\ue63a'
 			}
 		],
+		
+		menubar: {
+			platform: null,
+			statusbar_height: 20,
+			nav_margin: 6,
+			menubtn_height: 32,
+			menubtn_left: null
+		}
 	},
 	mutations: {
 		/**
@@ -83,6 +83,20 @@ export default new Vuex.Store({
 				value: data
 			})
 		},
+		
+		menubar(context, {platform, statusbar_height, system, nav_margin = 6, menubtn_height = 32, menubtn_left}) {
+			if (platform === 'ios') nav_margin = 4
+			context.commit('update', {
+				key: 'menubar',
+				value: {
+					platform,
+					statusbar_height,
+					nav_margin,
+					menubtn_height,
+					menubtn_left
+				}
+			})
+		}
 	},
 	modules: {}
 })

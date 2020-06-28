@@ -27,23 +27,23 @@ $_text_xsl: 120 !default;
 
 
 
-.text-Abc {
-	text-transform: Capitalize;
-}
+// .text-Abc {
+// 	text-transform: Capitalize;
+// }
 
-.text-ABC {
-	text-transform: Uppercase;
-}
+// .text-ABC {
+// 	text-transform: Uppercase;
+// }
 
-.text-abc {
-	text-transform: Lowercase;
-}
+// .text-abc {
+// 	text-transform: Lowercase;
+// }
 
-.text-cut {
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
+// .text-cut {
+// 	text-overflow: ellipsis;
+// 	white-space: nowrap;
+// 	overflow: hidden;
+// }
 
 .text-bold {
 	font-weight: bold;

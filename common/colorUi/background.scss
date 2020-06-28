@@ -38,7 +38,7 @@ $white_color: #666666 !default;
 		background-color: $v;
 		color: map-get(bg_colors(), $k);
 		@if map-get(colors(true), $k) {
-			&.light {
+			&-light {
 				background-color: map-get(colors(true), $k);
 				color: $v;
 			}

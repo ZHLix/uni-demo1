@@ -1,29 +1,14 @@
 <script>
 export default {
+	globalData: {
+		$utils: {},
+		$request: {},
+		$api: {}
+	},
 	onLaunch: function() {
-		//console.log('App Launch')
-		this.$request.setConfig({ baseURL: 'http://192.168.1.14:8000' })
-
-		this.$request.setInterceptors(
-			'request',
-			req => req,
-			(err, promise) => {
-				console.log('request error data', err)
-				promise.reject(err)
-			}
-		)
-
-		this.$request.setInterceptors(
-			'response',
-			res => {
-				console.log('response data', res)
-				return res
-			},
-			(err, promise) => {
-				console.log('response error data', err)
-				promise.reject(err)
-			}
-		)
+		this.globalData.$api = this.$api
+		this.globalData.$request = this.$request
+		this.globalData.$utils = this.$utils
 
 		// #ifdef APP-NVUE
 		switch (uni.getSystemInfoSync().platform) {
@@ -42,43 +27,48 @@ export default {
 		// #endif
 	},
 
-	onShow: function() {
-		console.log('App Show')
-	},
-	onHide: function() {
-		console.log('App Hide')
+	async beforeCreate() {
+		const [, { platform, statusBarHeight, system }] = await uni.getSystemInfo()
+
+		// #ifdef MP
+		const { height, top, left } = uni.getMenuButtonBoundingClientRect()
+		const nav_margin = top - statusBarHeight
+		// #endif
+
+		this.$store.dispatch('menubar', {
+			platform,
+			statusbar_height: statusBarHeight,
+			// #ifdef MP
+			nav_margin,
+			menubtn_height: height,
+			menubtn_left: left
+			// #endif
+		})
 	}
 }
 </script>
 
 <style lang="scss">
+@import './common/colorUi/index.scss';
+
 /*每个页面公共css */
-// color ui
-@import './common/colorUi/index.css';
+.container_full {
+	/* #ifdef APP-NVUE */
+	// flex: 1;
+	/* #endif */
 
+	/* #ifndef APP-NVUE */
+	// width: 100vw;
+	// height: 100vh;
+	/* #endif */
 
-
-.w-25 {
-	width: 25%;
-}
-
-.w-50 {
-	width: 50%;
-}
-
-.w-100 {
-	width: 100%;
-}
-
-.h-25 {
-	height: 25%;
-}
-
-.h-50 {
-	height: 50%;
-}
-
-.h-100 {
-	height: 100%;
+	width: 750upx;
+	/* #ifdef H5 */
+	height: calc(100vh - 44px);
+	/* #endif */
+	/* #ifndef H5 */
+	height: 100vh;
+	/* #endif */
+	flex: 1;
 }
 </style>
