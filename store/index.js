@@ -16,11 +16,16 @@ export default new Vuex.Store({
 			background: '#f0f0f0',
 		},
 
+
+		/**
+		 * 全局设置
+		 */
+		config: {},
+
 		/**
 		 * 底部导航列表
 		 */
-		tabbar: [
-			{
+		tabbar: [{
 				name: '/pages/index/index',
 				title: '首页',
 
@@ -53,7 +58,10 @@ export default new Vuex.Store({
 				iconSelected: '\ue63a'
 			}
 		],
-		
+
+		/**
+		 * 菜单栏配置
+		 */
 		menubar: {
 			platform: null,
 			statusbar_height: 20,
@@ -77,14 +85,34 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
+		theme(context, data) {
+			context.commit('update', {
+				key: 'theme',
+				value: data
+			})
+		},
+		config(context, data) {
+			context.commit('update', {
+				key: 'config',
+				value: data
+			})
+		},
+
 		tabbar(context, data) {
 			context.commit('update', {
 				key: 'tabbar',
 				value: data
 			})
 		},
-		
-		menubar(context, {platform, statusbar_height, system, nav_margin = 6, menubtn_height = 32, menubtn_left}) {
+
+		menubar(context, {
+			platform,
+			statusbar_height,
+			system,
+			nav_margin = 6,
+			menubtn_height = 32,
+			menubtn_left
+		}) {
 			if (platform === 'ios') nav_margin = 4
 			context.commit('update', {
 				key: 'menubar',

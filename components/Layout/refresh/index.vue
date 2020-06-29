@@ -3,6 +3,7 @@
 	<scroll-view
 		class="refresh-container flex-sub"
 		scroll-y="true"
+		enable-flex
 		:refresher-enabled="refresh"
 		:refresher-triggered="refresherTriggered"
 		@refresherrefresh="refresherHandle"

@@ -3,6 +3,25 @@
 		<c-menu-bar shadow><text class="text-black text-df">培训</text></c-menu-bar>
 
 		<c-refresh :refresh="false" class="flex-sub" ref="refresh">
+			<!-- 轮播图 开始 -->
+			<view class="carousel">
+				<c-carousel
+					:options="{
+						height: 350,
+						autoplay: true,
+						circular: true,
+						indicatorDots: true
+					}"
+					v-model="carousel.list"
+					@click="carouselHandle"
+				></c-carousel>
+			</view>
+			<!-- 轮播图 结束 -->
+
+			<!-- 滚动公告 开始 -->
+			<view class="w-100 flex-row"><c-notice-bar class="flex-sub"></c-notice-bar></view>
+			<!-- 滚动公告 结束 -->
+
 			<view class="padding">
 				<navigator url="./login" hover-class="none">
 					<button class="cu-btn bg-blue"><text class="text-df text-white">登录</text></button>
@@ -19,14 +38,48 @@ import CIcon from '@/components/Icon'
 import CRefresh from '@/components/Layout/refresh'
 import CTabBar from '@/components/TabBar'
 import CMenuBar from '@/components/MenuBar'
+import CCarousel from '@/components/Carousel'
+import CNoticeBar from '@/components/NoticeBar'
+
 export default {
-	components: { CMenuBar, CIcon, CTabBar, CRefresh },
+	components: { CMenuBar, CIcon, CTabBar, CRefresh, CCarousel, CNoticeBar },
 	data() {
 		return {
 			/**
 			 * api
 			 */
-			api: {}
+			api: null,
+
+			carousel: [],
+			horn: {
+				list: [],
+				data: []
+			},
+			tab1: {
+				cols: [6, 6, 4, 4, 4],
+				colors: ['blue', 'pink', 'orange', 'purple', 'green'],
+				title_size: ['lg', 'lg', 'sm', 'sm', 'sm'],
+				data: []
+			},
+			tab2: {
+				cols: [4, 4, 4],
+				colors: ['red', 'orange', 'green'],
+				data: []
+			},
+
+			list: {
+				page: 1,
+				limit: 10,
+				total: null,
+				status: 'loadmore',
+				refresh: false,
+				loadText: {
+					loadmore: '上拉或点击加载更多',
+					loading: '努力加载中',
+					nomore: '好课更新中'
+				},
+				data: []
+			}
 		}
 	},
 	computed: {
@@ -35,14 +88,35 @@ export default {
 		}
 	},
 	methods: {
-		init() {
-			console.log(this.$request.post('miniapp/index'))
-			// this.api.init()
+		/**
+		 * 初始化
+		 */
+		async init() {
+			const {
+				data: { Carousel, Horn, Top1, Top2 },
+				success,
+				msg
+			} = await getApp().globalData.$api.commit('init')
+			if (!success) {
+				return false
+			}
+
+			this.carousel = Carousel
+			this.horn = Horn
+			this.tab1.data = Top1
+			this.tab2.data = Top2
+		},
+
+		/**
+		 * 轮播回调
+		 * @param {Object} row
+		 */
+		carouselHandle(row) {
+			console.log(row)
 		}
 	},
-	
+
 	created() {
-		// this.api = this.$api.Index // getApp().globalData.$api.Index
 		this.init()
 	}
 }

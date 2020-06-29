@@ -5,8 +5,8 @@ export default class Base {
 		}
 	}
 
-	bind(vm) {
-		this.$vm = vm
+	bind(app) {
+		this.$app = app
 	}
 
 	/**

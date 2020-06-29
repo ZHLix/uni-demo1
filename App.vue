@@ -6,6 +6,38 @@ export default {
 		$api: {}
 	},
 	onLaunch: function() {
+		// console.log('App Launch')
+		this.$request.setConfig({ baseURL: this.$store.state.baseUrl })
+
+		this.$request.setInterceptors(
+			'request',
+			req => req,
+			(err, promise) => {
+				console.log('request error data', err)
+				return promise.resolve(err)
+			}
+		)
+
+		this.$request.setInterceptors(
+			'response',
+			res => {
+				console.log('response data', res)
+				return Object.assign({}, res.data, { headers: res.headers })
+			},
+			(err, promise) => {
+				console.log('response error data', err)
+				const res = Object.assign({}, { code: err.status, msg: err.message, data: null, success: false })
+				switch (res.code) {
+					case 404:
+						this.$utils.toast('访问地址未找到')
+						break
+					default:
+						this.$utils.toast(res.msg)
+				}
+				return promise.resolve(res)
+			}
+		)
+
 		this.globalData.$api = this.$api
 		this.globalData.$request = this.$request
 		this.globalData.$utils = this.$utils
