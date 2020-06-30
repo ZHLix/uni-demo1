@@ -14,7 +14,7 @@
 	<!-- #endif -->
 	<!-- #ifndef MP -->
 
-	<view class="refresh flex-sub margin-tb">
+	<view class="refresh flex-sub">
 		<scroll-view
 			class="refresh-container flex-sub flex flex-direction align-center"
 			scroll-y
@@ -204,7 +204,7 @@ export default {
 <style scoped lang="scss">
 .refresh {
 	height: 100%;
-	transform: translateY(-32upx);
+	transform: translateY(-2upx);
 }
 /* #ifdef MP */
 .refresh-container {

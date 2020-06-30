@@ -1,17 +1,33 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-
 		{
 			"path": "pages/index/index",
-			"style":{
-				"navigationStyle":"custom"
+			"style": {
+				"navigationStyle": "custom"
 			}
-			
+		},
+		{
+			"path": "pages/index/classify",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/news",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/mine",
+			"style": {
+				"navigationStyle": "custom"
+			}
 		},
 		{
 			"path": "pages/index/login",
 			"style": {
-				"navigationStyle":"custom"
+				"navigationStyle": "custom"
 			}
 		}
 	],
@@ -23,29 +39,26 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	// "tabBar": {
-	// 	"backgroundColor": "#2C405A",
-	// 	"color": "#ffffff",
-	// 	"selectedColor": "#1CBBB4",
-	// 	// #ifdef MP-WEIXIN
-	// 	"custom": true,
-	// 	// #endif
-	// 	"list": [{
-	// 		"text": "首页",
-	// 		"pagePath": "pages/index/index"
-	// }, {
-	// 	"text": "分类",
-	// 	"pagePath": "pages/classify/classify"
-	// }, {
-	// 	"text": "新闻",
-	// 	"pagePath": "pages/news/news"
-	// }, {
-	// 	"text": "购物车",
-	// 	"pagePath": "pages/cart/cart"
-	// }, {
-	// 	"text": "我的",
-	// 	"pagePath": "pages/mine/mine"
-	// }]
-	// },
+	"tabBar": {
+		"backgroundColor": "#2C405A",
+		"color": "#ffffff",
+		"selectedColor": "#1CBBB4",
+		// #ifdef MP-WEIXIN
+		"custom": true,
+		// #endif
+		"list": [{
+			"text": "首页",
+			"pagePath": "pages/index/index"
+		}, {
+			"text": "分类",
+			"pagePath": "pages/index/classify"
+		}, {
+			"text": "新闻",
+			"pagePath": "pages/index/news"
+		}, {
+			"text": "我的",
+			"pagePath": "pages/index/mine"
+		}]
+	},
 	"usingComponents": {}
 }

@@ -53,10 +53,10 @@ export default class IndexIndex extends Base {
 			return v
 		})
 
-		list.Horn.list = {
-			list: list.Horn.list.map(v => v.title),
-			data: list.Horn.list
-		}
+		// list.Horn = {
+		// 	list: list.Horn.list.map(v => v.title),
+		// 	data: list.Horn.list
+		// }
 
 		list.Top1.list = list.Top1.list.map(v => {
 			v.title = v.text1
@@ -94,7 +94,7 @@ export default class IndexIndex extends Base {
 		} = await this.$request.post('miniapp/GetCourseList', this.params(req))
 		
 		res = res.map(v => Object.assign(v, {
-			// time: this.$app.$utils.formatSeconds(v.count_time),
+			time: this.$app.$utils.formatSeconds(v.count_time),
 			title: v.name,
 			image: this.$app.$store.state.baseUrl + '/' + v.img
 		}))

@@ -28,7 +28,7 @@ class Utils {
 	 * 定时器
 	 */
 	setTimeout(func, s = 0) {
-		if (!s) s = parseInt(String(func))
+		if (typeof func !== 'function') s = func
 		return new Promise(resolve => {
 			setTimeout(() => {
 				resolve(func)
@@ -51,6 +51,65 @@ class Utils {
 			mask: false
 		})
 		// #endif
+	}
+
+	formatSeconds(value, zh = true) {
+
+		let theTime = parseInt(value) // 秒
+		let middle = 0 // 分
+		let hour = 0 // 小时
+
+		if (theTime > 60) {
+			middle = parseInt(theTime / 60)
+			theTime = parseInt(theTime % 60)
+			if (middle > 60) {
+				hour = parseInt(middle / 60)
+				middle = parseInt(middle % 60)
+			}
+		}
+		theTime = parseInt(theTime)
+		if (!zh && theTime < 10) theTime = `0${theTime}`
+		let result = '' + theTime + (zh ? '秒' : '')
+
+		middle = parseInt(middle)
+		if (!zh && middle < 10) middle = `0${middle}`
+		result = '' + middle + (zh ? '分' : ':') + result
+
+		hour = parseInt(hour)
+		if (!zh && hour < 10) hour = `0${hour}`
+		result = '' + hour + (zh ? '小时' : ':') + result
+
+		if (zh) {
+			result = result.replace(/^((0|00)小时)/, '')
+			result = result.replace(/^((0|00)分)/, '')
+		}
+
+		return result
+	}
+
+	str2Seconds(value) {
+		let arr = value.split(':').map(v => parseInt(v))
+
+		return arr[0] * 3600 + arr[1] * 60 + arr[2]
+	}
+
+	createSelectorQuery(select, _this) {
+		return new Promise(resolve => {
+			let query = uni.createSelectorQuery()
+			query.in(_this).select(select).boundingClientRect((res) => resolve(res)).exec()
+		})
+	}
+
+	//生成从minNum到maxNum的随机数
+	random(minNum, maxNum) {
+		switch (arguments.length) {
+			case 1:
+				return parseInt(Math.random() * minNum + 1, 10)
+			case 2:
+				return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10)
+			default:
+				return 0
+		}
 	}
 }
 

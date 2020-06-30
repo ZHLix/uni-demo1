@@ -74,7 +74,6 @@ export default {
 		 * 数据列表长度
 		 */
 		_count() {
-			console.log(this._value, typeof this._value)
 			return this._value.length
 		},
 

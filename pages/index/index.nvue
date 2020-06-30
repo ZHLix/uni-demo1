@@ -1,8 +1,8 @@
 <template>
 	<view class="container_full flex flex-direction">
-		<c-menu-bar shadow><text class="text-black text-df">培训</text></c-menu-bar>
+		<c-menu-bar><text class="text-black text-df">培训</text></c-menu-bar>
 
-		<c-refresh :refresh="false" class="flex-sub" ref="refresh">
+		<c-refresh class="flex-sub" ref="refresh" @start="pullDownRefresh" @tolower="tolower">
 			<!-- 轮播图 开始 -->
 			<view class="carousel">
 				<c-carousel
@@ -18,14 +18,83 @@
 			</view>
 			<!-- 轮播图 结束 -->
 
-			<!-- 滚动公告 开始 -->
-			<view class="w-100 flex-row"><c-notice-bar class="flex-sub"></c-notice-bar></view>
-			<!-- 滚动公告 结束 -->
+			<view class="w-100">
+				<!-- 滚动公告 开始 -->
+				<view class="flex-row padding-lr-sm">
+					<c-notice-bar class="flex-sub radius" v-model="horn.list" color="#909399" background="#f4f4f5" @click="hornHandle"></c-notice-bar>
+				</view>
+				<!-- 滚动公告 结束 -->
 
-			<view class="padding">
-				<navigator url="./login" hover-class="none">
-					<button class="cu-btn bg-blue"><text class="text-df text-white">登录</text></button>
-				</navigator>
+				<!-- tab 开始 -->
+				<view class="top">
+					<view class="top1 padding-lr-sm padding-bottom-sm">
+						<view class="title padding-sm flex-row align-center">
+							<text class="text-lg text-bold text-black">{{ tab1.data.title }}</text>
+							<text class="text-sm text-gray margin-left">{{ tab1.data.small_title }}</text>
+						</view>
+
+						<view class="content">
+							<view class="row flex-row">
+								<template v-for="(v, k) in tab1.data.list">
+									<view :class="['col', 'tab-item', 'flex-sub', 'padding-lr', 'justify-center', 'radius', 'bg-gradual-' + tab1.colors[k]]" :key="k" v-if="k < 2">
+										<text :class="['text-white', 'text-' + tab1.title_size[k], 'text-bold', 'text-center']">{{ v.title }}</text>
+										<text class="text-white text-xs text-center">{{ v.small_title }}</text>
+									</view>
+								</template>
+							</view>
+
+							<view class="row flex-row margin-top-sm">
+								<template v-for="(v, k) in tab1.data.list">
+									<view :class="['col', 'tab-item', 'flex-sub', 'padding-lr', 'justify-center', 'radius', 'bg-gradual-' + tab1.colors[k]]" :key="k" v-if="k >= 2">
+										<text :class="['text-white', 'text-' + tab1.title_size[k], 'text-bold', 'text-center']">{{ v.title }}</text>
+										<text class="text-white text-xs text-center">{{ v.small_title }}</text>
+									</view>
+								</template>
+							</view>
+						</view>
+					</view>
+
+					<view class="top2 padding-lr-sm padding-bottom-sm">
+						<view class="title padding-sm flex-row align-center">
+							<text class="text-lg text-bold text-black">{{ tab2.data.title }}</text>
+							<text class="text-sm text-gray margin-left">{{ tab2.data.small_title }}</text>
+						</view>
+
+						<view class="content">
+							<view class="row flex-row">
+								<template v-for="(v, k) in tab2.data.list">
+									<view :class="['col', 'tab-item', 'flex-sub', 'padding-lr', 'justify-center', 'radius', 'bg-gradual-' + tab2.colors[k]]" :key="k">
+										<text :class="['text-white', 'text-sm', 'text-bold', 'text-center']">{{ v.title }}</text>
+										<text class="text-white text-xs text-center">{{ v.small_title }}</text>
+									</view>
+								</template>
+							</view>
+						</view>
+					</view>
+				</view>
+				<!-- tab 结束 -->
+			</view>
+
+			<!-- 课程列表 开始 -->
+			<view class="list w-100 padding-lr-sm">
+				<view class="title padding-sm flex-row align-center"><text class="text-lg text-bold text-black">优选课程</text></view>
+
+				<view class="content">
+					<view class="list-item flex-row padding-tb-sm" v-for="(v, k) in list.data" :key="k">
+						<view class="image padding-right"><image :src="v.image" class="cu-avatar-xl radius-xl" mode="aspectFill" alt="" /></view>
+						<view class="content flex-sub flex-direction justify-start">
+							<view class="title">
+								<text class="text-lg text-blod">{{ v.title }}</text>
+							</view>
+							<view class="other">
+								<text class="text-xs margin-top-xs text-gray">{{ v.public ? '公开课' : '非公开课' }}</text>
+								<text class="text-xs margin-top-xs">{{ v.time }}</text>
+							</view>
+						</view>
+					</view>
+				</view>
+
+				<view class="load-more flex-row justify-center align-center"><c-load-more :status="list.status" :text="list.loadText" /></view>
 			</view>
 		</c-refresh>
 
@@ -40,9 +109,10 @@ import CTabBar from '@/components/TabBar'
 import CMenuBar from '@/components/MenuBar'
 import CCarousel from '@/components/Carousel'
 import CNoticeBar from '@/components/NoticeBar'
+import CLoadMore from '@/components/LoadMore'
 
 export default {
-	components: { CMenuBar, CIcon, CTabBar, CRefresh, CCarousel, CNoticeBar },
+	components: { CMenuBar, CIcon, CTabBar, CRefresh, CCarousel, CNoticeBar, CLoadMore },
 	data() {
 		return {
 			/**
@@ -50,8 +120,8 @@ export default {
 			 */
 			api: null,
 
-			carousel: [],
-			horn: {
+			carousel: uni.getStorageSync('IndexCarousel') ?? [],
+			horn: uni.getStorageSync('IndexHorn') ?? {
 				list: [],
 				data: []
 			},
@@ -59,12 +129,12 @@ export default {
 				cols: [6, 6, 4, 4, 4],
 				colors: ['blue', 'pink', 'orange', 'purple', 'green'],
 				title_size: ['lg', 'lg', 'sm', 'sm', 'sm'],
-				data: []
+				data: uni.getStorageSync('IndexTop1') ?? []
 			},
 			tab2: {
 				cols: [4, 4, 4],
 				colors: ['red', 'orange', 'green'],
-				data: []
+				data: uni.getStorageSync('IndexTop2') ?? []
 			},
 
 			list: {
@@ -102,9 +172,70 @@ export default {
 			}
 
 			this.carousel = Carousel
+			uni.setStorageSync('IndexCarousel', Carousel)
 			this.horn = Horn
+			uni.setStorageSync('IndexHorn', Horn)
 			this.tab1.data = Top1
+			uni.setStorageSync('IndexTop1', Top1)
 			this.tab2.data = Top2
+			uni.setStorageSync('IndexTop2', Top2)
+		},
+
+		/**
+		 * 列表查询
+		 */
+		async select(reload = false) {
+			let {
+				data: {
+					data,
+					pagination: { total }
+				},
+				success,
+				msg
+			} = await getApp().globalData.$api.commit('list', {
+				page: this.list.page,
+				limit: this.list.limit
+			})
+			if (!success) {
+				return false
+			}
+			if (reload) {
+				this.list.data = data
+			} else {
+				this.list.data = [...this.list.data, ...data]
+			}
+			this.list.total = total
+		},
+
+		/**
+		 * 下拉监听
+		 */
+		async pullDownRefresh() {
+			this.list.page = 1
+			this.list.status = 'loadmore'
+
+			this.init(true)
+			await this.select(true)
+			await getApp().globalData.$utils.setTimeout(0.6)
+			this.$refs.refresh.end()
+		},
+
+		/**
+		 * 上拉监听
+		 */
+		async tolower() {
+			if (this.list.total && Math.ceil(this.list.total / this.list.limit) == this.list.page) {
+				if (this.list.status != 'nomore') {
+					this.list.status = 'loading'
+					await getApp().globalData.$utils.setTimeout(1)
+					this.list.status = 'nomore'
+				}
+			} else {
+				this.list.page += 1
+				this.list.status = 'loading'
+				await this.select()
+				this.list.status = 'loadmore'
+			}
 		},
 
 		/**
@@ -113,13 +244,36 @@ export default {
 		 */
 		carouselHandle(row) {
 			console.log(row)
+		},
+
+		/**
+		 * 滚动公告回调
+		 * @param {Object} row
+		 */
+		hornHandle(row) {
+			console.log(row)
 		}
 	},
 
 	created() {
 		this.init()
+		this.select()
 	}
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.row {
+	margin-left: -10rpx;
+	margin-right: -10rpx;
+}
+
+.col {
+	margin-left: 10rpx;
+	margin-right: 10rpx;
+}
+
+.tab-item {
+	height: 120rpx;
+}
+</style>

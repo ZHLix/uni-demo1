@@ -33,14 +33,14 @@ export default new Vuex.Store({
 				iconSelected: '\ue60a'
 			},
 			{
-				name: '/pages/classify/classify',
+				name: '/pages/index/classify',
 				title: '分类',
 
 				icon: '\ue654',
 				iconSelected: '\ue608'
 			},
 			{
-				name: '/pages/news/news',
+				name: '/pages/index/news',
 				title: '新闻',
 				icon: '\ue657',
 				iconSelected: '\ue658'
@@ -52,7 +52,7 @@ export default new Vuex.Store({
 				appId: 'wxc5e14770d465dcac'
 			},
 			{
-				name: '/pages/mine/mine',
+				name: '/pages/index/mine',
 				title: '我的',
 				icon: '\ue63b',
 				iconSelected: '\ue63a'

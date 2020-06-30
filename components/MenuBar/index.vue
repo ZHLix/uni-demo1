@@ -1,5 +1,5 @@
 <template>
-	<view class="menu-bar" :style="{ height: height + 'px' }">
+	<view class="menu-bar" :style="{ height: (fixed ? 0 : height) + 'px'  }">
 		<view :class="['menubar', shadow ? 'shadow' : '']" :style="{ backgroundColor: background, height: height + 'px' }">
 			<view class="padding-lr-sm flex-row align-center" :style="{ height: menubar_height + 'px', marginTop: statusbar_height + 'px', paddingRight: left }">
 				<view class="back margin-right-xs padding-lr-xs" v-if="back" @click="backHandle"><c-icon :icon="'\ue65c'"></c-icon></view>
@@ -25,6 +25,8 @@ export default {
 		 * 阴影
 		 */
 		shadow: Boolean,
+		
+		fixed: Boolean,
 
 		back: Boolean
 	},
