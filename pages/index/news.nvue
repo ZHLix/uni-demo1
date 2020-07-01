@@ -1,0 +1,17 @@
+<template>
+	<view>
+		<c-menu-bar><text class="text-df">新闻</text></c-menu-bar>
+
+		<c-tab-bar></c-tab-bar>
+	</view>
+</template>
+
+<script>
+import CMenuBar from '@/components/MenuBar'
+import CTabBar from '@/components/TabBar'
+export default {
+	components: { CMenuBar, CTabBar }
+}
+</script>
+
+<style></style>

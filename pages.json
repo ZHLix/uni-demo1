@@ -34,15 +34,15 @@
 	"globalStyle": {
 		// "navigationBarBackgroundColor": "#2C405A",
 		// "navigationBarTitleText": "测试"
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTextStyle": "black"
+		// "navigationBarTitleText": "uni-app"
+		// "navigationBarBackgroundColor": "#F8F8F8"
+		// "backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
-		"backgroundColor": "#2C405A",
-		"color": "#ffffff",
-		"selectedColor": "#1CBBB4",
+		// "backgroundColor": "#2C405A",
+		// "color": "#ffffff",
+		// "selectedColor": "#1CBBB4",
 		// #ifdef MP-WEIXIN
 		"custom": true,
 		// #endif

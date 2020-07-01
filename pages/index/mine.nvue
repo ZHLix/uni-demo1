@@ -1,0 +1,71 @@
+<template>
+	<view class="flex-sub">
+		<view class="top">
+			<c-menu-bar background="transparent"><text class="text-df">我的</text></c-menu-bar>
+
+			<!-- 用户信息 开始 -->
+			<view class="padding-lr">
+				<view class="top-content flex-row justify-start align-center" v-if="!is_login">
+					<navigator url="./login" hover-class="none">
+						<view class="avatar cu-avatar-xl bg-gray-light round"><c-icon :icon="'\ue63b'" class="text-gray"></c-icon></view>
+					</navigator>
+
+					<navigator url="./login" hover-class="none">
+						<view class="cu-btn"><text class="text-lg" :style="{ color: theme.text }">登录</text></view>
+					</navigator>
+				</view>
+
+				<view class="top-content flex-row justify-start align-center" v-else>
+					<view class="avatar cu-avatar-xl bg-gray-light round"><c-icon :icon="'\ue63b'" class="text-gray"></c-icon></view>
+					<view class="content flex-sub margin-left">
+						<view class="nickname"><text class="text-lg">昵称</text></view>
+						<view class="tags margin-top-xs">
+							<view class="flex-row">
+								<c-icon :icon="'\ue607'" size="24" class="text-red"></c-icon>
+								<text class="text-xs text-gray">未实名</text>
+							</view>
+						</view>
+					</view>
+					<view class="right-arrow"><c-icon :icon="'\ue659'" class="text-gray" size="28"></c-icon></view>
+				</view>
+			</view>
+			<!-- 用户信息 结束 -->
+		</view>
+
+		<c-tab-bar></c-tab-bar>
+	</view>
+</template>
+
+<script>
+import CMenuBar from '@/components/MenuBar'
+import CTabBar from '@/components/TabBar'
+import CIcon from '@/components/Icon'
+
+export default {
+	components: { CMenuBar, CTabBar, CIcon },
+	computed: {
+		is_login() {
+			return true
+		},
+
+		theme() {
+			return this.$store.state.theme
+		}
+	},
+	methods: {}
+}
+</script>
+
+<style scoped>
+.top {
+	/* background-image: linear-gradient(to bottom right, #9efbd3, #45d4fb); */
+	/* background-image: linear-gradient(to bottom right, #89f7fe, #66a6ff); */
+	/* background-image: linear-gradient(to bottom right, #4facfe, #00f2fe); */
+	/* background-image: linear-gradient(to bottom right, rgb(147, 213, 220), rgb(92, 179, 204)); */
+	/* background-image: url('/static/images/texture.png'); */
+}
+
+.top-content {
+	height: 200upx;
+}
+</style>
