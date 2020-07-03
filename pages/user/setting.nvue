@@ -1,0 +1,88 @@
+<template>
+	<view>
+		<c-menu-bar back><text class="text-df">设置</text></c-menu-bar>
+
+		<!-- 用户信息 开始 -->
+		<view class="padding-lr">
+			<navigator url="../user/login" hover-class="none" v-if="!is_login">
+				<view class="top-content padding-tb flex-row justify-between align-center">
+					<view class="avatar cu-avatar-lg bg-gray-light round"><c-icon :icon="'\ue63b'" class="text-gray"></c-icon></view>
+
+					<view class="flex-row align-center">
+						<view class="padding-right"><text class="text-df text-gray">登录</text></view>
+
+						<view class="right-arrow"><c-icon :icon="'\ue659'" class="text-gray" size="28"></c-icon></view>
+					</view>
+				</view>
+			</navigator>
+
+			<view class="top-content padding-tb flex-row justify-start align-center" v-else>
+				<view class="avatar cu-avatar-lg bg-gray-light round"><c-icon :icon="'\ue63b'" class="text-gray"></c-icon></view>
+				<view class="content flex-sub margin-left">
+					<view class="nickname"><text class="text-lg">昵称</text></view>
+					<view class="tags margin-top-xs">
+						<view class="flex-row">
+							<c-icon :icon="'\ue607'" size="24" class="text-red"></c-icon>
+							<text class="text-xs text-gray">未实名</text>
+						</view>
+					</view>
+				</view>
+				<view class="right-arrow"><c-icon :icon="'\ue659'" class="text-gray" size="28"></c-icon></view>
+			</view>
+		</view>
+		<!-- 用户信息 结束 -->
+
+		<!-- 列表 开始 -->
+		<view class="list padding">
+			<view class="list-item padding-bottom solid-bottom flex-row align-center">
+				<!-- 标题 -->
+				<view class="title flex-sub"><text class="text-sm">清除缓存</text></view>
+
+				<view><text class="text-sm text-gray">20.0MB</text></view>
+			</view>
+			<view class="list-item padding-top padding-bottom-sm flex-row align-center">
+				<!-- 标题 -->
+				<view class="title flex-sub"><text class="text-sm">用户协议</text></view>
+
+				<!-- 箭头 -->
+				<view class="right-arrow"><c-icon :icon="'\ue659'" class="text-gray" size="28"></c-icon></view>
+			</view>
+			<view class="list-item padding-tb-sm flex-row align-center">
+				<!-- 标题 -->
+				<view class="title flex-sub"><text class="text-sm">隐私政策</text></view>
+
+				<!-- 箭头 -->
+				<view class="right-arrow"><c-icon :icon="'\ue659'" class="text-gray" size="28"></c-icon></view>
+			</view>
+			<view class="list-item padding-tb-sm flex-row align-center">
+				<!-- 标题 -->
+				<view class="title flex-sub"><text class="text-sm">关于我们</text></view>
+
+				<!-- 箭头 -->
+				<view class="right-arrow"><c-icon :icon="'\ue659'" class="text-gray" size="28"></c-icon></view>
+			</view>
+		</view>
+		<!-- 列表 结束 -->
+	</view>
+</template>
+
+<script>
+import CMenuBar from '@/components/MenuBar'
+import CIcon from '@/components/Icon'
+
+export default {
+	components: { CMenuBar, CIcon },
+	computed: {
+		is_login() {
+			return false
+		},
+
+		theme() {
+			return this.$store.state.theme
+		}
+	},
+	methods: {}
+}
+</script>
+
+<style></style>

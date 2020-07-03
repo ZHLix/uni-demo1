@@ -11,7 +11,10 @@ export default {
 
 		this.$request.setInterceptors(
 			'request',
-			req => req,
+			req => {
+				console.log('request data', req)
+				return req
+			},
 			(err, promise) => {
 				console.log('request error data', err)
 				return promise.resolve(err)

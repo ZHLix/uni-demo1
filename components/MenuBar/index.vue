@@ -1,18 +1,20 @@
 <template>
-	<view class="menu-bar" :style="{ height: (fixed ? 0 : height) + 'px'  }">
-		<view :class="['menubar', shadow ? 'shadow' : '']" :style="{ backgroundColor: background, height: height + 'px' }">
-			<view class="padding-lr-sm flex-row align-center" :style="{ height: menubar_height + 'px', marginTop: statusbar_height + 'px', paddingRight: left }">
-				<view class="back margin-right-xs padding-lr-xs" v-if="back" @click="backHandle"><c-icon :icon="'\ue65c'"></c-icon></view>
-				<slot></slot>
-			</view>
+	<view
+		:class="fixed ? ['menubar', 'flex-row', 'w-100', fixed ? 'fixed' : '', shadow ? 'shadow' : ''] : 'menu-bar'"
+		:style="{ backgroundColor: fixed ? background : '', height: height + 'px' }"
+	>
+		<view :class="['menubar', 'flex-row', 'w-100', 'fixed', shadow ? 'shadow' : '']" :style="{ backgroundColor: background, height: height + 'px' }" v-if="!fixed">
+			<c-content class="flex-sub" :back="back"><slot></slot></c-content>
 		</view>
+
+		<c-content class="flex-sub" :back="back" v-else><slot></slot></c-content>
 	</view>
 </template>
 
 <script>
-import CIcon from '../Icon'
+import CContent from './content'
 export default {
-	components: { CIcon },
+	components: { CContent },
 	props: {
 		/**
 		 * 背景
@@ -25,7 +27,7 @@ export default {
 		 * 阴影
 		 */
 		shadow: Boolean,
-		
+
 		fixed: Boolean,
 
 		back: Boolean
@@ -54,14 +56,6 @@ export default {
 		}
 	},
 
-	methods: {
-		backHandle() {
-			uni.navigateBack({
-				delta: 1
-			})
-		}
-	},
-
 	async created() {
 		if (!this.menubar.platform) {
 			const [, { platform, statusBarHeight, system }] = await uni.getSystemInfo()
@@ -85,9 +79,16 @@ export default {
 </script>
 
 <style scoped>
-	.menu-bar {
-		z-index: 1024;
-	}
+.menu-bar,
+.menubar {
+	z-index: 1024;
+}
+
+.fixed {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
 .shadow {
 	box-shadow: 0 -1upx 6upx rgba(0, 0, 0, 0.1);
 }

@@ -1,6 +1,10 @@
 <template>
-	<view>
+	<view class="container_full">
 		<c-menu-bar><text class="text-df">分类</text></c-menu-bar>
+		
+		<view class="flex-sub">
+			<c-linkage class="flex-sub" v-model="list"></c-linkage>
+		</view>
 
 		<c-tab-bar></c-tab-bar>
 	</view>
@@ -9,8 +13,29 @@
 <script>
 import CMenuBar from '@/components/MenuBar'
 import CTabBar from '@/components/TabBar'
+import CLinkage from '@/components/Layout/linkage'
 export default {
-	components: { CMenuBar, CTabBar }
+	components: { CMenuBar, CTabBar, CLinkage },
+
+	data() {
+		return {
+			list: []
+		}
+	},
+
+	methods: {
+		async init() {
+			let { data, success, msg } = await getApp().globalData.$api.commit('list')
+			if (!success) {
+				return false
+			}
+			this.list = data
+		}
+	},
+
+	created() {
+		this.init()
+	}
 }
 </script>
 

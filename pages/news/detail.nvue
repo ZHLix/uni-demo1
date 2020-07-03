@@ -1,0 +1,43 @@
+<template>
+	<view>
+		<c-menu-bar back>
+			<text class="flex-sub text-df text-cut">{{ title }}</text>
+		</c-menu-bar>
+
+		<view class="padding-lr-xs"><wx-parse v-model="content" v-if="content"></wx-parse></view>
+	</view>
+</template>
+
+<script>
+import CMenuBar from '@/components/MenuBar'
+import WxParse from '@/components/Parse'
+export default {
+	components: { CMenuBar, WxParse },
+
+	data() {
+		return {
+			title: '-',
+			content: ''
+		}
+	},
+
+	methods: {
+		async select({ id }) {
+			let { data, success, msg } = await getApp().globalData.$api.NewsDetail.find({ id })
+			if (!success) {
+				return false
+			}
+			
+			this.content = data.content
+		}
+	},
+
+	onLoad(query) {
+		query = getApp().globalData.$utils.urlParams(query)
+		this.title = query.title
+		this.select(query)
+	}
+}
+</script>
+
+<style></style>

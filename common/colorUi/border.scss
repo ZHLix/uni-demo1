@@ -70,6 +70,10 @@
 	// box-sizing: border-box;
 }
 
+@mixin border_init() {
+	border-width: 0 !important;
+}
+
 .solid {
 	border-width: 1upx !important;
 	border-style: solid !important;
@@ -78,6 +82,7 @@
 }
 
 .solid-top {
+	border-width: 0 !important;
 	border-top-width: 1upx !important;
 	border-style: solid !important;
 	border-color: rgba(0, 0, 0, 0.1) !important;
@@ -85,6 +90,7 @@
 }
 
 .solid-right {
+	border-width: 0 !important;
 	border-right-width: 1upx !important;
 	border-style: solid !important;
 	border-color: rgba(0, 0, 0, 0.1) !important;
@@ -92,6 +98,7 @@
 }
 
 .solid-bottom {
+	border-width: 0 !important;
 	border-bottom-width: 1upx !important;
 	border-style: solid !important;
 	border-color: rgba(0, 0, 0, 0.1) !important;
@@ -99,6 +106,7 @@
 }
 
 .solid-left {
+	border-width: 0 !important;
 	border-left-width: 1upx !important;
 	border-style: solid !important;
 	border-color: rgba(0, 0, 0, 0.1) !important;
@@ -113,6 +121,7 @@
 }
 
 .solids-top {
+	border-width: 0 !important;
 	border-top-width: 8upx !important;
 	border-style: solid !important;
 	border-color: #eee !important;
@@ -120,6 +129,7 @@
 }
 
 .solids-right {
+	border-width: 0 !important;
 	border-right-width: 8upx !important;
 	border-style: solid !important;
 	border-color: #eee !important;
@@ -127,6 +137,7 @@
 }
 
 .solids-bottom {
+	border-width: 0 !important;
 	border-bottom-width: 8upx !important;
 	border-style: solid !important;
 	border-color: #eee !important;
@@ -134,6 +145,7 @@
 }
 
 .solids-left {
+	border-width: 0 !important;
 	border-left-width: 8upx !important;
 	border-style: solid !important;
 	border-color: #eee !important;
@@ -150,6 +162,7 @@
 }
 
 .dashed-top {
+	border-width: 0 !important;
 	border-top-width: 1upx !important;
 	border-style: dashed !important;
 	border-color: #ddd !important;
@@ -157,6 +170,7 @@
 }
 
 .dashed-right {
+	border-width: 0 !important;
 	border-right-width: 1upx !important;
 	border-style: dashed !important;
 	border-color: #ddd !important;
@@ -164,6 +178,7 @@
 }
 
 .dashed-bottom {
+	border-width: 0 !important;
 	border-bottom-width: 1upx !important;
 	border-style: dashed !important;
 	border-color: #ddd !important;
@@ -171,6 +186,7 @@
 }
 
 .dashed-left {
+	border-width: 0 !important;
 	border-left-width: 1upx !important;
 	border-style: dashed !important;
 	border-color: #ddd !important;

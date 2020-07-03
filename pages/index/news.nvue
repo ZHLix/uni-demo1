@@ -1,7 +1,32 @@
 <template>
-	<view>
+	<view class="flex-sub">
 		<c-menu-bar><text class="text-df">新闻</text></c-menu-bar>
+		<view class="flex-sub">
+			<c-refresh ref="refresh" @start="pullDownRefresh" @tolower="tolower">
+				<!-- 列表 开始 -->
+				<view class="w-100 list padding-lr-sm">
+					<view class="list-item flex-row padding-tb-sm solid-bottom" v-for="(v, k) in list.data" :key="k" @click="handle(v)">
+						<view class="content flex-sub flex-direction justify-between padding-top-xs">
+							<view class="title">
+								<text class="text-df text-blod text-cut">{{ v.title }}</text>
+							</view>
+							<view class="other margin-top">
+								<view class="flex-row">
+									<text class="text-sm text-gray margin-right-xs" v-for="(v2, k2) in v.class" :key="k2">{{ v2 }}</text>
+								</view>
+								<view class="margin-top-xs">
+									<text class="text-xs">{{ v.people }}浏览</text>
+								</view>
+							</view>
+						</view>
+						<view class="image padding-left" v-if="v.image"><image :src="v.image" class="cu-avatar-xl radius-xl" mode="aspectFill" alt="" /></view>
+					</view>
+				</view>
+				<!-- 列表 结束 -->
 
+				<view class="load-more flex-row justify-center align-center"><c-load-more :status="list.status" :text="list.loadText" /></view>
+			</c-refresh>
+		</view>
 		<c-tab-bar></c-tab-bar>
 	</view>
 </template>
@@ -9,8 +34,100 @@
 <script>
 import CMenuBar from '@/components/MenuBar'
 import CTabBar from '@/components/TabBar'
+import CRefresh from '@/components/Layout/refresh'
+import CLoadMore from '@/components/LoadMore'
 export default {
-	components: { CMenuBar, CTabBar }
+	components: { CMenuBar, CTabBar, CRefresh, CLoadMore },
+
+	data() {
+		return {
+			list: {
+				page: 1,
+				limit: 10,
+				total: null,
+				status: 'loadmore',
+				refresh: false,
+				loadText: {
+					loadmore: '上拉或点击加载更多',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
+				data: uni.getStorageSync('NewsList') ?? []
+			}
+		}
+	},
+
+	methods: {
+		/**
+		 * 列表查询
+		 */
+		async select(reload = false) {
+			let {
+				data: {
+					data,
+					pagination: { total }
+				},
+				success,
+				msg
+			} = await getApp().globalData.$api.commit('list', {
+				page: this.list.page,
+				limit: this.list.limit
+			})
+			if (!success) {
+				return false
+			}
+			if (reload) {
+				this.list.data = data
+				uni.setStorageSync('NewsList', data)
+			} else {
+				this.list.data = [...this.list.data, ...data]
+			}
+			this.list.total = total
+		},
+
+		/**
+		 * 下拉监听
+		 */
+		async pullDownRefresh() {
+			this.list.page = 1
+			this.list.status = 'loadmore'
+
+			await this.select(true)
+			await getApp().globalData.$utils.setTimeout(0.6)
+			this.$refs.refresh.end()
+		},
+
+		/**
+		 * 上拉监听
+		 */
+		async tolower() {
+			if (this.list.total && Math.ceil(this.list.total / this.list.limit) == this.list.page) {
+				if (this.list.status != 'nomore') {
+					this.list.status = 'loading'
+					await getApp().globalData.$utils.setTimeout(1)
+					this.list.status = 'nomore'
+				}
+			} else {
+				this.list.page += 1
+				this.list.status = 'loading'
+				await this.select()
+				this.list.status = 'loadmore'
+			}
+		},
+
+		/**
+		 * 点击操作
+		 */
+		handle({ id, title }) {
+			uni.navigateTo({
+				url: getApp().globalData.$utils.url('../news/detail', { id, title })
+			})
+		}
+	},
+
+	created() {
+		this.pullDownRefresh()
+	}
 }
 </script>
 

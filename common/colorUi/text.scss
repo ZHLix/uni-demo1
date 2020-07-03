@@ -7,7 +7,7 @@ $_text_xxl: 44 !default;
 $_text_sl: 80 !default;
 $_text_xsl: 120 !default;
 
-@function size () {
+@function size() {
 	@return (xs: $_text_xs, sm: $_text_sm, df: $_text_df, lg: $_text_lg, xl: $_text_xl, xxl: $_text_xxl, sl: $_text_sl, xsl: $_text_xsl);
 }
 
@@ -25,8 +25,6 @@ $_text_xsl: 120 !default;
 	}
 }
 
-
-
 // .text-Abc {
 // 	text-transform: Capitalize;
 // }
@@ -39,16 +37,20 @@ $_text_xsl: 120 !default;
 // 	text-transform: Lowercase;
 // }
 
-// .text-cut {
-// 	text-overflow: ellipsis;
-// 	white-space: nowrap;
-// 	overflow: hidden;
-// }
+.text-cut {
+	text-overflow: ellipsis;
+	/* #ifdef APP-NVUE */
+	lines: 1;
+	/* #endif */
+	/* #ifndef APP-NVUE */
+	white-space: nowrap;
+	overflow: hidden;
+	/* #endif */
+}
 
 .text-bold {
 	font-weight: bold;
 }
-
 
 .text-left {
 	text-align: left;

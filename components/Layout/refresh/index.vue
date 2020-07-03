@@ -224,7 +224,7 @@ export default {
 
 .container {
 	width: 750upx;
-	background-color: #f1f1f1;
+	// background-color: #f1f1f1;
 	flex-direction: row;
 	overflow: hidden;
 }
